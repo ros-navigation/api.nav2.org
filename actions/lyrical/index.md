@@ -8,7 +8,7 @@ permalink: /actions/lyrical/
 
 This page documents the ROS Action APIs available in Nav2 for the lyrical distribution. These actions provide high-level interfaces for navigation tasks, planning, and recovery behaviors.
 
-## Available Actions (17 total)
+## Available Actions (19 total)
 
 
 ### Navigation Actions
@@ -95,6 +95,11 @@ This page documents the ROS Action APIs available in Nav2 for the lyrical distri
     <p class="action-description">Drive robot forward in a specific direction for a given distance</p>
   </div>
   <div class="action-card">
+    <h4><a href="/actions/lyrical/dummybehavior.html">DummyBehavior</a></h4>
+    <p class="action-package">Package: nav2_msgs</p>
+    <p class="action-description">Test and development utility behavior for behavior tree validation</p>
+  </div>
+  <div class="action-card">
     <h4><a href="/actions/lyrical/spin.html">Spin</a></h4>
     <p class="action-package">Package: nav2_msgs</p>
     <p class="action-description">Rotate robot in place to a target yaw angle with collision checking</p>
@@ -103,6 +108,16 @@ This page documents the ROS Action APIs available in Nav2 for the lyrical distri
     <h4><a href="/actions/lyrical/wait.html">Wait</a></h4>
     <p class="action-package">Package: nav2_msgs</p>
     <p class="action-description">Pause robot operation for a specified duration or until condition is met</p>
+  </div>
+</div>
+
+### Object Following
+
+<div class="action-grid">
+  <div class="action-card">
+    <h4><a href="/actions/lyrical/followobject.html">FollowObject</a></h4>
+    <p class="action-package">Package: nav2_msgs</p>
+    <p class="action-description">Follow a detected object using pose tracking or TF frame tracking</p>
   </div>
 </div>
 
@@ -127,5 +142,3 @@ This page documents the ROS Action APIs available in Nav2 for the lyrical distri
 - [Nav2 C++ API Documentation](/lyrical/html/index.html)
 - [Nav2 Official Documentation](https://nav2.org/)
 - [ROS 2 Actions Documentation](https://docs.ros.org/en/lyrical/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Actions/Understanding-ROS2-Actions.html)
-
-*Generated on 2025-08-12 08:36:22 UTC*

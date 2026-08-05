@@ -8,7 +8,7 @@ permalink: /msgs/rolling/
 
 This page documents the ROS Message APIs available in Nav2 for the rolling distribution. These messages provide data structures for navigation tasks, sensor data, and system status.
 
-## Available Messages (19 total)
+## Available Messages (24 total)
 
 
 ### Costmap Messages
@@ -96,6 +96,36 @@ This page documents the ROS Message APIs available in Nav2 for the rolling distr
   </div>
 </div>
 
+### Controller Messages
+
+<div class="action-grid">
+  <div class="action-card">
+    <h4><a href="/msgs/rolling/criticsstats.html">CriticsStats</a></h4>
+    <p class="action-package">Package: nav2_msgs</p>
+    <p class="action-description">Statistics from controller critic plugins for debugging and tuning</p>
+  </div>
+  <div class="action-card">
+    <h4><a href="/msgs/rolling/trackingfeedback.html">TrackingFeedback</a></h4>
+    <p class="action-package">Package: nav2_msgs</p>
+    <p class="action-description">Real-time tracking error feedback from the Nav2 controller for path following</p>
+  </div>
+</div>
+
+### Vector Map Messages
+
+<div class="action-grid">
+  <div class="action-card">
+    <h4><a href="/msgs/rolling/circleobject.html">CircleObject</a></h4>
+    <p class="action-package">Package: nav2_msgs</p>
+    <p class="action-description">Circle object for vector map representation on costmaps</p>
+  </div>
+  <div class="action-card">
+    <h4><a href="/msgs/rolling/polygonobject.html">PolygonObject</a></h4>
+    <p class="action-package">Package: nav2_msgs</p>
+    <p class="action-description">Polygon object for vector map representation on costmaps</p>
+  </div>
+</div>
+
 ### Collision Detection Messages
 
 <div class="action-grid">
@@ -109,11 +139,21 @@ This page documents the ROS Message APIs available in Nav2 for the rolling distr
     <p class="action-package">Package: nav2_msgs</p>
     <p class="action-description">Monitoring state for collision avoidance systems</p>
   </div>
+  <div class="action-card">
+    <h4><a href="/msgs/rolling/exclusionzonedescription.html">ExclusionZoneDescription</a></h4>
+    <p class="action-package">Package: nav2_msgs</p>
+    <p class="action-description">Description of an exclusion zone for the collision monitor or detector</p>
+  </div>
 </div>
 
 ### Trajectory Messages
 
 <div class="action-grid">
+  <div class="action-card">
+    <h4><a href="/msgs/rolling/speedlimit.html">SpeedLimit</a></h4>
+    <p class="action-package">Package: nav2_msgs</p>
+    <p class="action-description">Speed limit information for navigation areas</p>
+  </div>
   <div class="action-card">
     <h4><a href="/msgs/rolling/trajectory.html">Trajectory</a></h4>
     <p class="action-package">Package: nav2_msgs</p>
@@ -123,11 +163,6 @@ This page documents the ROS Message APIs available in Nav2 for the rolling distr
     <h4><a href="/msgs/rolling/trajectorypoint.html">TrajectoryPoint</a></h4>
     <p class="action-package">Package: nav2_msgs</p>
     <p class="action-description">Single point in a trajectory with pose, velocity, and timing</p>
-  </div>
-  <div class="action-card">
-    <h4><a href="/msgs/rolling/speedlimit.html">SpeedLimit</a></h4>
-    <p class="action-package">Package: nav2_msgs</p>
-    <p class="action-description">Speed limit information for navigation areas</p>
   </div>
 </div>
 
@@ -148,5 +183,3 @@ This page documents the ROS Message APIs available in Nav2 for the rolling distr
 - [Nav2 Service APIs](/srvs/rolling/index.html)
 - [Nav2 C++ API Documentation](/rolling/html/index.html)
 - [Nav2 Official Documentation](https://nav2.org/)
-
-*Generated on 2025-08-12 08:24:37 UTC*

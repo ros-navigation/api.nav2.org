@@ -8,7 +8,7 @@ permalink: /srvs/rolling/
 
 This page documents the ROS Service APIs available in Nav2 for the rolling distribution. These services provide request-response interfaces for navigation configuration, system control, and data queries.
 
-## Available Services (14 total)
+## Available Services (20 total)
 
 
 ### Costmap Services
@@ -96,6 +96,51 @@ This page documents the ROS Service APIs available in Nav2 for the rolling distr
   </div>
 </div>
 
+### Collision Monitor Services
+
+<div class="service-grid">
+  <div class="service-card">
+    <h4><a href="/srvs/rolling/addexclusionzone.html">AddExclusionZone</a></h4>
+    <p class="service-package">Package: nav2_msgs</p>
+    <p class="service-description">Add an exclusion zone to a collision monitor or detector source at runtime</p>
+  </div>
+  <div class="service-card">
+    <h4><a href="/srvs/rolling/removeexclusionzone.html">RemoveExclusionZone</a></h4>
+    <p class="service-package">Package: nav2_msgs</p>
+    <p class="service-description">Remove exclusion zone(s) from a collision monitor or detector source at runtime</p>
+  </div>
+</div>
+
+### Vector Map Services
+
+<div class="service-grid">
+  <div class="service-card">
+    <h4><a href="/srvs/rolling/addshapes.html">AddShapes</a></h4>
+    <p class="service-package">Package: nav2_msgs</p>
+    <p class="service-description">Add or update vector objects (circles and polygons) on the costmap</p>
+  </div>
+  <div class="service-card">
+    <h4><a href="/srvs/rolling/getshapes.html">GetShapes</a></h4>
+    <p class="service-package">Package: nav2_msgs</p>
+    <p class="service-description">Retrieve vector objects currently applied on the costmap</p>
+  </div>
+  <div class="service-card">
+    <h4><a href="/srvs/rolling/removeshapes.html">RemoveShapes</a></h4>
+    <p class="service-package">Package: nav2_msgs</p>
+    <p class="service-description">Remove vector objects from the costmap by UUID or remove all</p>
+  </div>
+</div>
+
+### Utility Services
+
+<div class="service-grid">
+  <div class="service-card">
+    <h4><a href="/srvs/rolling/toggle.html">Toggle</a></h4>
+    <p class="service-package">Package: nav2_msgs</p>
+    <p class="service-description">Enable or disable a Nav2 component at runtime</p>
+  </div>
+</div>
+
 ### Validation Services
 
 <div class="service-grid">
@@ -123,5 +168,3 @@ This page documents the ROS Service APIs available in Nav2 for the rolling distr
 - [Nav2 Message APIs](/msgs/rolling/index.html)
 - [Nav2 C++ API Documentation](/rolling/html/index.html)
 - [Nav2 Official Documentation](https://nav2.org/)
-
-*Generated on 2025-08-12 08:31:41 UTC*

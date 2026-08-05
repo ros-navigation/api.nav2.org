@@ -19,6 +19,7 @@ Compute an optimal path from current position to a target pose
 |-------|------|-------------|
 | `goal` | `geometry_msgs/PoseStamped` | Target goal pose for path planning |
 | `start` | `geometry_msgs/PoseStamped` | Starting pose for path planning |
+| `viapoints` | `geometry_msgs/PoseStamped[]` | Optional intermediate waypoints the path should pass through |
 | `planner_id` | `string` | Name of the specific planning algorithm to use (e.g., "GridBased", "NavfnPlanner"). If empty with single planner, uses default |
 | `use_start` | `bool` | If false, use current robot pose as path start, if true, use start above instead |
 
@@ -71,6 +72,8 @@ class Nav2ActionClient(Node):
         goal_msg.goal.pose.orientation.w = 1.0
         goal_msg.planner_id = 'GridBased'
         goal_msg.use_start = False
+        # Optionally set intermediate waypoints
+        # goal.viapoints = [via_pose1, via_pose2]
         
         self.action_client.wait_for_server()
         future = self.action_client.send_goal_async(
@@ -109,6 +112,8 @@ public:
         goal_msg.goal.pose.orientation.w = 1.0;
         goal_msg.planner_id = "GridBased";
         goal_msg.use_start = false;
+        // Optionally set intermediate waypoints
+        // goal_msg.viapoints = {via_pose1, via_pose2};
         
         action_client_->wait_for_action_server();
         

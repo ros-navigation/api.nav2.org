@@ -38,6 +38,8 @@ Compute an optimal path connecting multiple poses in sequence
 | `TIMEOUT` | `uint16` | Error code indicating the action exceeded its maximum allowed time |
 | `NO_VALID_PATH` | `uint16` | Error code indicating no feasible path could be found between start and goal |
 | `NO_VIAPOINTS_GIVEN` | `uint16` | Error code indicating no intermediate waypoints were provided for path planning through poses |
+| `ALL_GOALS` | `int16` | Constant (-1) indicating all goals were reached |
+| `last_reached_index` | `int16` | Index of the last goal successfully reached (-1 if all goals reached) |
 | `path` | `nav_msgs/Path` | Computed navigation path with poses and metadata |
 | `planning_time` | `builtin_interfaces/Duration` | Time spent in path planning phase |
 | `error_code` | `uint16` | Numeric error code indicating specific failure reason (0=success, various codes for different failure types) |
@@ -96,6 +98,13 @@ class Nav2ActionClient(Node):
         
     def feedback_callback(self, feedback_msg):
         self.get_logger().info(f'Received feedback: {feedback_msg.feedback}')
+
+    def result_callback(self, future):
+        result = future.result()
+        if result.result.last_reached_index == result.result.ALL_GOALS:
+            self.get_logger().info('All goals reached successfully')
+        else:
+            self.get_logger().info(f'Last reached goal index: {result.result.last_reached_index}')
 ```
 
 ### C++
@@ -156,6 +165,15 @@ private:
                           const std::shared_ptr<const ComputePathThroughPosesAction::Feedback> feedback)
     {
         RCLCPP_INFO(this->get_logger(), "Received feedback");
+    }
+
+    void result_callback(const GoalHandle::WrappedResult & result)
+    {
+        if (result.result->last_reached_index == result.result->ALL_GOALS) {
+            RCLCPP_INFO(this->get_logger(), "All goals reached successfully");
+        } else {
+            RCLCPP_INFO(this->get_logger(), "Last reached goal index: %d", result.result->last_reached_index);
+        }
     }
 };
 ```

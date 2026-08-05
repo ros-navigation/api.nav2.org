@@ -21,6 +21,7 @@ Execute path following using a specified controller with progress monitoring
 | `controller_id` | `string` | Name of the path following controller to use (e.g., "FollowPath", "RegulatedPurePursuit") |
 | `goal_checker_id` | `string` | Name of the goal checker plugin to use |
 | `progress_checker_id` | `string` | Name of the progress monitoring plugin to use for tracking path following advancement |
+| `path_handler_id` | `string` | Name of the path handler plugin to use for managing path updates |
 
 
 ### Result Message
@@ -36,6 +37,7 @@ Execute path following using a specified controller with progress monitoring
 | `FAILED_TO_MAKE_PROGRESS` | `uint16` | Error code indicating the robot failed to make sufficient progress along the path |
 | `NO_VALID_CONTROL` | `uint16` | Error code indicating the controller could not compute valid control commands |
 | `CONTROLLER_TIMED_OUT` | `uint16` | Error code indicating the controller exceeded its maximum allowed execution time |
+| `TIMEOUT` | `uint16` | Error code indicating the action exceeded its maximum allowed time |
 | `result` | `std_msgs/Empty` | Empty result indicating successful completion |
 | `error_code` | `uint16` | Numeric error code indicating specific failure reason (0=success, various codes for different failure types) |
 | `error_msg` | `string` | Human-readable error message describing what went wrong during action execution |
@@ -45,8 +47,7 @@ Execute path following using a specified controller with progress monitoring
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `distance_to_goal` | `float32` | Current distance from the robot to the final goal position in meters, updated continuously during navigation |
-| `speed` | `float32` | Movement speed in meters per second for the specified motion |
+| `tracking_feedback` | `nav2_msgs/TrackingFeedback` | Real-time tracking error indicating position/heading deviation from the path, current path index, speed, and distance to goal |
 
 
 
@@ -70,7 +71,8 @@ class Nav2ActionClient(Node):
         goal_msg.path.header.frame_id = 'map'
         goal_msg.path.header.stamp = self.get_clock().now().to_msg()
         goal_msg.controller_id = 'FollowPath'
-        goal_msg.goal_checker_id = 'simple_goal_checker' 
+        goal_msg.goal_checker_id = 'simple_goal_checker'
+        goal_msg.path_handler_id = ''  # Use default path handler
         
         self.action_client.wait_for_server()
         future = self.action_client.send_goal_async(
@@ -78,7 +80,8 @@ class Nav2ActionClient(Node):
         return future
         
     def feedback_callback(self, feedback_msg):
-        self.get_logger().info(f'Received feedback: {feedback_msg.feedback}')
+        tracking = feedback_msg.feedback.tracking_feedback
+        self.get_logger().info(f'Distance to goal: {tracking.distance_to_goal:.2f}m, Speed: {tracking.speed:.2f}m/s')
 ```
 
 ### C++
@@ -107,6 +110,7 @@ public:
         goal_msg.path.header.stamp = this->now();
         goal_msg.controller_id = "FollowPath";
         goal_msg.goal_checker_id = "simple_goal_checker";
+        goal_msg.path_handler_id = "";  // Use default path handler
         
         action_client_->wait_for_action_server();
         
@@ -124,7 +128,9 @@ private:
     void feedback_callback(GoalHandle::SharedPtr, 
                           const std::shared_ptr<const FollowPathAction::Feedback> feedback)
     {
-        RCLCPP_INFO(this->get_logger(), "Received feedback");
+        auto tracking = feedback->tracking_feedback;
+        RCLCPP_INFO(this->get_logger(), "Distance to goal: %.2f m, Speed: %.2f m/s",
+          tracking.distance_to_goal, tracking.speed);
     }
 };
 ```

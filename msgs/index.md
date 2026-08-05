@@ -23,12 +23,12 @@ This page provides access to Nav2 Message APIs for all distributions. Messages p
   </div>
   <div class="distribution-card">
     <h3><a href="/msgs/lyrical/">Lyrical</a></h3>
-    <p><strong>Messages:</strong> 19 total</p>
+    <p><strong>Messages:</strong> 24 total</p>
     <p>Latest LTS release with comprehensive navigation messages</p>
   </div>
   <div class="distribution-card">
     <h3><a href="/msgs/rolling/">Rolling</a></h3>
-    <p><strong>Messages:</strong> 19 total</p>
+    <p><strong>Messages:</strong> 24 total</p>
     <p>Latest development version with trajectory and advanced navigation messages</p>
   </div>
 </div>

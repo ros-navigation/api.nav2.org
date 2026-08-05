@@ -51,7 +51,7 @@ class ManageLifecycleNodesClient(Node):
         
     def send_request(self):
         request = ManageLifecycleNodes.Request()
-        # Set request.command as needed
+        request.command = ManageLifecycleNodes.Request.STARTUP  # STARTUP=0, PAUSE=1, RESUME=2, RESET=3, SHUTDOWN=4, CONFIGURE=5, CLEANUP=6
         
         self.client.wait_for_service()
         future = self.client.call_async(request)
@@ -90,7 +90,7 @@ public:
     void send_request()
     {
         auto request = std::make_shared<nav2_msgs::srv::ManageLifecycleNodes::Request>();
-        // Set request->command as needed
+        request->command = nav2_msgs::srv::ManageLifecycleNodes::Request::STARTUP;  // STARTUP=0, PAUSE=1, RESUME=2, RESET=3, SHUTDOWN=4, CONFIGURE=5, CLEANUP=6
 
         client_->wait_for_service();
         

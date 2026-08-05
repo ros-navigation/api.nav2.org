@@ -17,14 +17,14 @@ Clear the entire costmap, resetting all cells to free space
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `request` | `std_msgs/Empty` | Clears all layers on the costmap |
+| `plugins` | `string[]` | List of costmap layer plugin names to clear (empty for all layers) |
 
 
 ### Response Message
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `response` | `std_msgs/Empty` | Response message or data |
+| `success` | `bool` | Whether the operation completed successfully |
 
 
 
@@ -44,7 +44,7 @@ class ClearEntireCostmapClient(Node):
         
     def send_request(self):
         request = ClearEntireCostmap.Request()
-        # Set request.request as needed
+        # request.plugins = ['obstacle_layer']  # Clear specific layers, or leave empty for all
         
         self.client.wait_for_service()
         future = self.client.call_async(request)
@@ -57,7 +57,8 @@ def main():
     future = client.send_request()
     rclpy.spin_until_future_complete(client, future)
     
-    if future.result():
+    response = future.result()
+    if response.success:
         client.get_logger().info('Service call completed')
     else:
         client.get_logger().error('Service call failed')
@@ -83,7 +84,7 @@ public:
     void send_request()
     {
         auto request = std::make_shared<nav2_msgs::srv::ClearEntireCostmap::Request>();
-        // Set request->request as needed
+        // request->plugins = {"obstacle_layer"};  // Clear specific layers, or leave empty for all
 
         client_->wait_for_service();
         
@@ -91,7 +92,10 @@ public:
         if (rclcpp::spin_until_future_complete(shared_from_this(), result_future) ==
             rclcpp::FutureReturnCode::SUCCESS)
         {
-            RCLCPP_INFO(get_logger(), "Service call completed");
+            auto response = result_future.get();
+            if (response->success) {
+                RCLCPP_INFO(get_logger(), "Service call completed");
+            }
         }
         else
         {

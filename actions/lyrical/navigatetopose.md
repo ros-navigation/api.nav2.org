@@ -26,6 +26,8 @@ Navigate robot to a specific pose with obstacle avoidance and recovery behaviors
 | Field | Type | Description |
 |-------|------|-------------|
 | `NONE` | `uint16` | Success status code indicating the action completed without errors |
+| `GOAL_REJECTED` | `uint16` | Error code indicating the goal was rejected by the server |
+| `SEND_GOAL_FAILURE` | `uint16` | Error code indicating failure to send the goal |
 | `UNKNOWN` | `uint16` | Generic error code for unexpected or unclassified failures |
 | `FAILED_TO_LOAD_BEHAVIOR_TREE` | `uint16` | Error code indicating the specified behavior tree file could not be loaded |
 | `TF_ERROR` | `uint16` | Error code indicating a transform/localization failure |
@@ -43,6 +45,8 @@ Navigate robot to a specific pose with obstacle avoidance and recovery behaviors
 | `estimated_time_remaining` | `builtin_interfaces/Duration` | Estimated time remaining to reach the goal |
 | `number_of_recoveries` | `int16` | Count of recovery behaviors executed during navigation to overcome obstacles or failures |
 | `distance_remaining` | `float32` | Approximate distance remaining to the goal |
+| `position_tracking_error` | `float32` | Signed cross-track error. Positive means robot is to the left of the path |
+| `heading_tracking_error` | `float32` | Signed heading error. Positive means robot heading is rotated to the right of the path direction |
 
 
 
@@ -75,7 +79,9 @@ class Nav2ActionClient(Node):
         return future
         
     def feedback_callback(self, feedback_msg):
-        self.get_logger().info(f'Received feedback: {feedback_msg.feedback}')
+        feedback = feedback_msg.feedback
+        self.get_logger().info(f'Position tracking error: {feedback.feedback.position_tracking_error}')
+        self.get_logger().info(f'Heading tracking error: {feedback.feedback.heading_tracking_error}')
 ```
 
 ### C++
@@ -122,7 +128,8 @@ private:
     void feedback_callback(GoalHandle::SharedPtr, 
                           const std::shared_ptr<const NavigateToPoseAction::Feedback> feedback)
     {
-        RCLCPP_INFO(this->get_logger(), "Received feedback");
+        RCLCPP_INFO(this->get_logger(), "Position tracking error: %f", feedback->position_tracking_error);
+        RCLCPP_INFO(this->get_logger(), "Heading tracking error: %f", feedback->heading_tracking_error);
     }
 };
 ```

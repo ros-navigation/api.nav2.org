@@ -23,12 +23,12 @@ This page provides access to Nav2 Action APIs for all distributions. Actions pro
   </div>
   <div class="distribution-card">
     <h3><a href="/actions/lyrical/">Lyrical</a></h3>
-    <p><strong>Actions:</strong> 17 total</p>
+    <p><strong>Actions:</strong> 19 total</p>
     <p>Latest LTS release with comprehensive navigation capabilities</p>
   </div>
   <div class="distribution-card">
     <h3><a href="/actions/rolling/">Rolling</a></h3>
-    <p><strong>Actions:</strong> 17 total</p>
+    <p><strong>Actions:</strong> 19 total</p>
     <p>Latest development version with cutting-edge features</p>
   </div>
 </div>

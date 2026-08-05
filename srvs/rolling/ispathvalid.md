@@ -20,12 +20,17 @@ Validate whether a given path is collision-free and traversable
 | `path` | `nav_msgs/Path` | Determine if the current path is still valid |
 | `max_cost` | `uint8` | Maximum allowable cost value |
 | `consider_unknown_as_obstacle` | `bool` | Whether to treat unknown cells as obstacles |
+| `layer_name` | `string` | Name of the costmap layer to check against (empty for default) |
+| `footprint` | `string` | Custom footprint specification for collision checking (empty for robot's configured footprint) |
+| `stop_at_first_collision` | `bool` | If true, stop checking after first invalid pose is found |
+| `max_lookahead_distance` | `float64` | Maximum distance along path to check (-1.0 for unlimited) |
 
 
 ### Response Message
 
 | Field | Type | Description |
 |-------|------|-------------|
+| `success` | `bool` | Whether the service call completed successfully |
 | `is_valid` | `bool` | Whether the validation passed |
 | `invalid_pose_indices` | `int32[]` | Indices of poses that failed validation |
 
@@ -50,6 +55,10 @@ class IsPathValidClient(Node):
         # Set request.path as needed
         # Set request.max_cost as needed
         request.consider_unknown_as_obstacle = True
+        request.layer_name = ''  # Use default costmap layer
+        request.stop_at_first_collision = True
+        request.max_lookahead_distance = -1.0  # Unlimited
+        # request.footprint = ''  # Use robot's configured footprint
         
         self.client.wait_for_service()
         future = self.client.call_async(request)
@@ -62,7 +71,8 @@ def main():
     future = client.send_request()
     rclpy.spin_until_future_complete(client, future)
     
-    if future.result():
+    response = future.result()
+    if response.success and response.is_valid:
         client.get_logger().info('Service call completed')
     else:
         client.get_logger().error('Service call failed')
@@ -91,6 +101,10 @@ public:
         // Set request->path as needed
         // Set request->max_cost as needed
         request->consider_unknown_as_obstacle = true;
+        request->layer_name = "";  // Use default costmap layer
+        request->stop_at_first_collision = true;
+        request->max_lookahead_distance = -1.0;  // Unlimited
+        // request->footprint = "";  // Use robot's configured footprint
 
         client_->wait_for_service();
         
@@ -98,7 +112,10 @@ public:
         if (rclcpp::spin_until_future_complete(shared_from_this(), result_future) ==
             rclcpp::FutureReturnCode::SUCCESS)
         {
-            RCLCPP_INFO(get_logger(), "Service call completed");
+            auto response = result_future.get();
+            if (response->success && response->is_valid) {
+                RCLCPP_INFO(get_logger(), "Service call completed");
+            }
         }
         else
         {
