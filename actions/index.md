@@ -22,9 +22,9 @@ This page provides access to Nav2 Action APIs for all distributions. Actions pro
     <p>Includes docking actions and GPS waypoint navigation</p>
   </div>
   <div class="distribution-card">
-    <h3><a href="/actions/kilted/">Kilted</a></h3>
+    <h3><a href="/actions/lyrical/">Lyrical</a></h3>
     <p><strong>Actions:</strong> 17 total</p>
-    <p>Extended feature set with comprehensive navigation capabilities</p>
+    <p>Latest LTS release with comprehensive navigation capabilities</p>
   </div>
   <div class="distribution-card">
     <h3><a href="/actions/rolling/">Rolling</a></h3>

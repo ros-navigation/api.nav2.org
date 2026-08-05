@@ -22,9 +22,9 @@ This page provides access to Nav2 Service APIs for all distributions. Services p
     <p>Includes GetCost service for precise costmap queries</p>
   </div>
   <div class="distribution-card">
-    <h3><a href="/srvs/kilted/">Kilted</a></h3>
-    <p><strong>Services:</strong> 13 total</p>
-    <p>Enhanced service set with additional utilities</p>
+    <h3><a href="/srvs/lyrical/">Lyrical</a></h3>
+    <p><strong>Services:</strong> 14 total</p>
+    <p>Latest LTS release with comprehensive service APIs</p>
   </div>
   <div class="distribution-card">
     <h3><a href="/srvs/rolling/">Rolling</a></h3>

@@ -22,9 +22,9 @@ This page provides access to Nav2 Message APIs for all distributions. Messages p
     <p>Includes MissedWaypoint message for waypoint navigation</p>
   </div>
   <div class="distribution-card">
-    <h3><a href="/msgs/kilted/">Kilted</a></h3>
-    <p><strong>Messages:</strong> 14 total</p>
-    <p>Balanced message set with core navigation features</p>
+    <h3><a href="/msgs/lyrical/">Lyrical</a></h3>
+    <p><strong>Messages:</strong> 19 total</p>
+    <p>Latest LTS release with comprehensive navigation messages</p>
   </div>
   <div class="distribution-card">
     <h3><a href="/msgs/rolling/">Rolling</a></h3>

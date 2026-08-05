@@ -26,11 +26,11 @@ collections:
 keep_files:
   - humble
   - jazzy
-  - kilted
+  - lyrical
   - rolling
   - nav2-humble
   - nav2-jazzy
-  - nav2-kilted
+  - nav2-lyrical
   - nav2-rolling
 
 exclude:

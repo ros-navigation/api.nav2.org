@@ -156,7 +156,7 @@ service_definitions = {
     }
 }
 
-distributions = ["humble", "jazzy", "kilted", "rolling"]
+distributions = ["humble", "jazzy", "lyrical", "rolling"]
 
 def get_service_topic(service_name):
     """Map service names to their typical ROS topic names"""
